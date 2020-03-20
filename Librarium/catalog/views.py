@@ -36,8 +36,21 @@ from django.views import generic
 
 class BookListView(generic.ListView):
     model = Book
-    # paginate_by = 2
     paginate_by = 10
 
 class BookDetailView(generic.DetailView):
     model = Book
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 10
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # context['book_list'] = Book.objects.all()
+    #     context['book_list'] = Book.objects.filter(author=2)
+    #     print(Author.pk())
+    #     return context
