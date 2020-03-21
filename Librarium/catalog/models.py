@@ -1,30 +1,12 @@
 import uuid # Required for unique book instances
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 from django.db import models
+from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 
 from django.db import models
-
-# class MyModelName(models.Model):
-#     """A typical class defining a model, derived from the Model class."""
-
-#     # Fields
-#     my_field_name = models.CharField(max_length=20, help_text='Enter field documentation')
-#     ...
-
-#     # Metadata
-#     class Meta: 
-#         ordering = ['-my_field_name']
-
-#     # Methods
-#     def get_absolute_url(self):
-#         """Returns the url to access a particular instance of MyModelName."""
-#         return reverse('model-detail-view', args=[str(self.id)])
-    
-#     def __str__(self):
-#         """String for representing the MyModelName object (in Admin site etc.)."""
-#         return self.my_field_name
 
 class Genre(models.Model):
     """Model representing a book genre."""
@@ -79,9 +61,9 @@ class BookInstance(models.Model):
         ('r', 'Reserved'),
     )
 
-    language = models.ForeignKey(
-        'Language', on_delete=models.SET_NULL, null=True, help_text='Select a language')
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True, help_text='Select a language')
 
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     status = models.CharField(
         max_length=1,
@@ -93,10 +75,21 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ['due_back']
+        permissions = (
+            ("can_mark_returned", "Set book as returned"),
+        )
 
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.id} ({self.book.title})'
+
+    @property
+    def is_overdue(self):
+        if self.due_back:
+            return False
+        if date.today() > self.due_back:
+            return True
+        return False
 
 class Author(models.Model):
     """Model representing an author."""
