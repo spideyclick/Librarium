@@ -2,16 +2,17 @@
 
 {% block content %}
 
-  <h1>{{ author.first_name }} {{ author.last_name }}</h1>
+<h1>{{ author.first_name }} {{ author.last_name }}</h1>
 
-  <p><strong>{{ author.date_of_birth }} - {{ author.date_of_death }}</strong>
+<p><strong>{{ author.date_of_birth }} - {{ author.date_of_death }}</strong>
 
-  <h4>{{ book_list.count }} Books</h4>
-  {% for book in author.book_set.all %}
+    <h4>{{ book_list.count }} Books</h4>
+    {% for book in author.book_set.all %}
     <hr>
-    <p><strong><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></strong> ({{ book.bookinstance_set.all.count }})</p>
+    <p><strong><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></strong>
+        ({{ book.bookinstance_set.all.count }})</p>
     <p>{{ book.summary }}</p>
     <p>{{ book.display_genre }}</p>
     <p class="text-muted"><strong>ISBN:</strong> {{ book.isbn }}</p>
-  {% endfor %}
-{% endblock %}
+    {% endfor %}
+    {% endblock %}

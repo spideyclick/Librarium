@@ -4,11 +4,12 @@
 <h1>Author List</h1>
 {% if author_list %}
 <ul>
-	{% for author in author_list %}
-	<li>
-		<a href="{% url 'author-detail' author.pk %}">{{ author.first_name }} {{ author.last_name }}</a> ({{ author.date_of_birth }} - {{ author.date_of_death }})
-	</li>
-	{% endfor %}
+    {% for author in author_list %}
+    <li>
+        <a href="{% url 'author-detail' author.pk %}">{{ author.first_name }} {{ author.last_name }}</a>
+        ({{ author.date_of_birth }} - {{ author.date_of_death }})
+    </li>
+    {% endfor %}
 </ul>
 {% else %}
 <p>There are no Authors in this library.</p>

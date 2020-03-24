@@ -7,8 +7,8 @@
 <p>Are you sure you want to delete the author: {{ author }}?</p>
 
 <form action="" method="POST">
-	{% csrf_token %}
-	<input type="submit" value="Yes, delete.">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete.">
 </form>
 
 {% endblock %}

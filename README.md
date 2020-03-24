@@ -4,7 +4,7 @@
 
 -   Build a library app following the MDN [this tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Tutorial_local_library_website) up to step 11
 - Then build a page with one of two features:  
-	- OCR upload page: allow a user to upload a file, run an OCR library on it, and display the text below  
+    - OCR upload page: allow a user to upload a file, run an OCR library on it, and display the text below  
 - Finally, containerize the app using Docker
 
 ## Resources
