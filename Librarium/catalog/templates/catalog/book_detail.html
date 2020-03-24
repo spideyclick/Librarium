@@ -3,6 +3,10 @@
 {% block content %}
 <h1>{{ book.title }}</h1>
 
+{% if perms.catalog.can_mark_returned %}
+<p><a href="{% url 'book_update' book.pk %}">Change</a> | <a href="{% url 'book_delete' book.pk %}">Remove</a></p>
+{% endif %}
+
 <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
 <p><strong>Summary:</strong> {{ book.summary }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p>
