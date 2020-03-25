@@ -285,3 +285,23 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, 'form', 'renewal_date', 'Invalid date - renewal more than 4 weeks ahead')
 
+
+class AuthorCreate(TestCase):
+    def setUp(self):
+        low_user = User.objects.create_user(username='test_userLow', password='1X<ISRUkw+tuK')
+        low_user.save()
+
+        super_user = User.objects.create_user(username='test_userSuper', password='2HJ1vRV0Z&3iD')
+        permission = Permission.objects.get(name='Set book as returned')
+        super_user.user_permissions.add(permission)
+        super_user.save()
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('author_create'))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/accounts/login/'))
+
+    def test_redirect_if_missing_permission(self):
+        login = self.client.login(username='test_userLow', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('author_create'))
+        self.assertEqual(type(response).__name__, "HttpResponseForbidden")
