@@ -130,3 +130,4 @@ dmypy.json
 
 .vscode/
 setup/
+.pip_cache/

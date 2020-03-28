@@ -1,0 +1,4 @@
+/Librarium/db.sqlite3
+/.vscode
+/.pip_cache
+/Librarium/*/__pycache__
