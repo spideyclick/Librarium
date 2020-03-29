@@ -15,7 +15,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2">
+            <div id="main-sidebar" class="col-sm-2">
                 {% block sidebar %}
                 <ul class="sidebar-nav">
                     <li><a href="{% url 'index' %}">Home</a></li>
@@ -23,6 +23,7 @@
                     <li><a href="{% url 'authors' %}">All authors</a></li>
                     {% if perms.catalog.can_mark_returned %}
                     <li><a href="{% url 'all-borrowed' %}">All Borrowed Books</a></li>
+                    <li><a href="{% url 'scan' %}">Scan Document</a></li>
                     {% endif %}
                     <br>
                     {% if user.is_authenticated %}

@@ -1,4 +1,13 @@
+import platform
+import pytesseract
 import datetime
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe'
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -13,7 +22,7 @@ from django.urls import reverse_lazy
 
 from catalog.models import Book, Author, BookInstance, Genre, Language
 from catalog.models import Author
-from catalog.forms import RenewBookForm
+from catalog.forms import RenewBookForm, ScanImageForm
 
 # Create your views here.
 
@@ -152,3 +161,15 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('catalog.can_mark_returned')
     model = Book
     success_url = reverse_lazy('books')
+
+@permission_required('catalog.can_mark_returned')
+def Scan(request):
+    scanData = ""
+    if request.method == 'POST':
+        form = ScanImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            scanData = pytesseract.image_to_string(
+                Image.open(request.FILES['image_field']))
+    form = ScanImageForm()
+    context = {'form':form, 'scanData':scanData}
+    return render(request, 'catalog/scan.html', context=context)
