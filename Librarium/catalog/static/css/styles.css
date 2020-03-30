@@ -18,7 +18,7 @@
     #main-sidebar {
         flex: 0 1 auto;
         max-width: 200px;
-        height: 100vh;
+        min-height: 100vh;
     }
     #main-content {
         flex: 1 1 auto;
