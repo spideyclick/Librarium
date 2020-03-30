@@ -5,4 +5,25 @@
 }
 #main-sidebar {
     background: #d6e4e2;
+    overflow-x:hidden;
+}
+#logo {
+    font-size:1.4rem;
+    margin-top:10px;
+}
+#logo i {
+    vertical-align: bottom;
+}
+@media (min-width: 576px) {
+    #main-sidebar {
+        flex: 0 1 auto;
+        max-width: 200px;
+        height: 100vh;
+    }
+    #main-content {
+        flex: 1 1 auto;
+        max-width: none;
+        width:auto;
+        max-width: calc(100% - 200px);
+    }
 }
